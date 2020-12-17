@@ -1,13 +1,10 @@
 package com.example.demo.controller;
 
-import com.example.demo.apiresponse.ApiResponse;
+import com.example.demo.load.ApiResponse;
 import com.example.demo.services.UserService;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,13 +25,13 @@ public class UserController {
     private UserService userService;
 
 
+
     @PostMapping("/userAdd")
     public ResponseEntity<User> addUser(@RequestBody User user) {
         User newUser = userService.addUser(user);
 
         return new ResponseEntity< >(newUser, HttpStatus.CREATED);
     }
-
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@RequestBody User newUser,
@@ -47,7 +44,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse> deleteUser(@PathVariable(value = "id") Long id) {
         ApiResponse apiResponse = userService.deleteUser(id);
-        return new ResponseEntity(apiResponse, HttpStatus.OK);
+        return new ResponseEntity< >(apiResponse, HttpStatus.OK);
     }
 
     @GetMapping("/users")

@@ -1,7 +1,7 @@
 package com.example.demo.services;
 
 
-import com.example.demo.apiresponse.ApiResponse;
+import com.example.demo.load.ApiResponse;
 import com.example.demo.entity.User;
 
 public interface UserService  {

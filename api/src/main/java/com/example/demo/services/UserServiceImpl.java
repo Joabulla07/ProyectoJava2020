@@ -1,10 +1,9 @@
 package com.example.demo.services;
 
-import com.example.demo.apiresponse.ApiResponse;
+import com.example.demo.load.ApiResponse;
 import com.example.demo.entity.User;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.UserRepository;
-import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

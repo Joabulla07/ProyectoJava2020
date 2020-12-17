@@ -1,4 +1,4 @@
-package com.example.demo.apiresponse;
+package com.example.demo.load;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

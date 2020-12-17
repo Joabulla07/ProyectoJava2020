@@ -1,6 +1,6 @@
 package com.example.demo.exception;
 
-import com.example.demo.apiresponse.ApiResponse;
+import com.example.demo.load.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 

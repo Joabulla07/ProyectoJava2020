@@ -1,8 +1,12 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -10,6 +14,8 @@ import java.util.List;
 
 
 @Entity
+@Data
+@Table(name = "posts", uniqueConstraints = { @UniqueConstraint(columnNames = { "title" }) })
 public class Posts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,17 +25,20 @@ public class Posts {
 
     private String body;
 
-    private Date fechaCreacion;
+    private LocalDate fechaCreacion;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
+    private boolean isPublished;
+
+
     @JsonIgnore
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
 
-    @JsonIgnore
+
     public User getUser() {
         return user;
     }
@@ -48,6 +57,14 @@ public class Posts {
         } else {
             this.comments = Collections.unmodifiableList(comments);
         }
+    }
+
+    public boolean isPublished() {
+        return isPublished;
+    }
+
+    public void setPublished(boolean published) {
+        isPublished = published;
     }
 
     public Long getId() {
@@ -74,11 +91,11 @@ public class Posts {
         this.body = body;
     }
 
-    public Date getFechaCreacion() {
+    public LocalDate getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(Date fechaCreacion) {
+    public void setFechaCreacion(LocalDate fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 }
