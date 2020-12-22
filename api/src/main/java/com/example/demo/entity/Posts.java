@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
@@ -29,10 +30,22 @@ public class Posts {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+
+    @JsonIgnore
     private User user;
+
+    private Long userIdentity;
 
     private boolean isPublished;
 
+
+    public Long getUserIdentity() {
+        return userIdentity;
+    }
+
+    public void setUserId(Long userIdentity) {
+        this.userIdentity = userIdentity;
+    }
 
     @JsonIgnore
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -47,6 +60,7 @@ public class Posts {
         this.user = user;
     }
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
     public List<Comment> getComments() {
         return comments == null ? null : new ArrayList<>(comments);
     }

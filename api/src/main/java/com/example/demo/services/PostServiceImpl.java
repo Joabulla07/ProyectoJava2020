@@ -9,6 +9,9 @@ import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service
 public class PostServiceImpl implements PostService{
@@ -26,6 +29,7 @@ public class PostServiceImpl implements PostService{
         posts.setTitle(posts.getTitle());
         posts.setBody(posts.getBody());
         posts.setUser(user);
+        posts.setUserIdentity(id);
         posts.setPublished(true);
         return PostRepository.save(posts);
     }
@@ -46,5 +50,6 @@ public class PostServiceImpl implements PostService{
             PostRepository.deleteById(id);
             return new ApiResponse(Boolean.TRUE, "You successfully deleted post");
     }
+
 
 }

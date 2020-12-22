@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -24,29 +25,29 @@ public class PostController {
     private PostRepository PostRepository;
 
 
-    @GetMapping("/posts")
+    @GetMapping("/posts/all")
     public List<Posts> getAllPosts(){
         return PostRepository.findAll();
     }
 
-    @GetMapping("/posts/{pala}")
-    public List<Posts> getPostsLike(@PathVariable(name = "pala") String n){
-        return PostRepository.findPostsByTitleLike(n);
+    @GetMapping("/posts/{word}")
+    public List<Posts> getAllPostsByWord(@PathVariable(value = "word") String word){
+        return PostRepository.findPostsByTitleLike(word);
     }
 
-    @GetMapping("/posts/publishedFalse")
-    public List<Posts> getPostsNotPublished(){
-        return PostRepository.findAllByPublishedIsFalse(); //error al compilar
+    @GetMapping("/posts/false")
+    public List<Posts> getAllPostsFalse() {
+        return PostRepository.findPostsByisPublishedIsFalse();
     }
 
-    @PostMapping("/posts/users/{id}")
+    @PostMapping("/posts/{id}")
     public ResponseEntity<Posts> addPost(@RequestBody Posts post,
                                          @PathVariable(name = "id") Long id) {
         Posts newPost = PostService.addPost(post, id);
         return new ResponseEntity< >(newPost, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/posts/{id}")
     public ResponseEntity<Posts> updatePost(@RequestBody Posts newPost,
                                             @PathVariable(name = "id") Long id) {
         Posts updatedPost = PostService.updatePost(newPost, id);
@@ -54,7 +55,7 @@ public class PostController {
         return new ResponseEntity< >(updatedPost, HttpStatus.OK);
     }
 
-    @DeleteMapping("/postDelete/{id}")
+    @DeleteMapping("/posts/{id}")
     public ResponseEntity<ApiResponse> deletePost(@PathVariable(name = "id") Long id) {
         ApiResponse apiResponse = PostService.deletePost(id);
 
