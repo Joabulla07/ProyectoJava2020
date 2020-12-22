@@ -1,16 +1,16 @@
 package com.example.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 
@@ -26,6 +26,8 @@ public class Posts {
 
     private String body;
 
+    @CreationTimestamp
+    @JsonFormat(pattern = "dd-MM-yyy")
     private LocalDate fechaCreacion;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -14,7 +14,6 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Posts, Long> {
 
     List<Posts> findPostsByTitleLike(String n);
-    List<Posts> findPostsByisPublishedIsTrue();
     List<Posts> findPostsByisPublishedIsFalse();
 
 }
